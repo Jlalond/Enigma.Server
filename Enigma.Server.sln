@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enigma.Server.Domain", "Eni
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enigma.Server.Networking", "Enigma.Server.Networking\Enigma.Server.Networking.csproj", "{51690EFC-DE99-456A-B5C1-30F7DCAC0C4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enigma.Server.ServerState", "Enigma.Server.ServerState\Enigma.Server.ServerState.csproj", "{50CEE479-A82E-47DE-B4F0-9761A677125C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{51690EFC-DE99-456A-B5C1-30F7DCAC0C4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51690EFC-DE99-456A-B5C1-30F7DCAC0C4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51690EFC-DE99-456A-B5C1-30F7DCAC0C4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50CEE479-A82E-47DE-B4F0-9761A677125C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50CEE479-A82E-47DE-B4F0-9761A677125C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50CEE479-A82E-47DE-B4F0-9761A677125C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50CEE479-A82E-47DE-B4F0-9761A677125C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
