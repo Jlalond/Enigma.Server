@@ -12,7 +12,7 @@ jobs:
         steps:
             - checkout
             - run: dotnet build -c Release
-    unit_tests
+    unit_tests:
         description: run unit tests
         steps:
             - checkout
