@@ -3,17 +3,17 @@ version: 2
 workflows:
     pipeline:
         jobs:
-            -build
-            -unit_tests
+            - build
+            - unit_tests
             
 jobs:
     build:
         description: Builds the server
         steps:
             - checkout
-            run: dotnet build -c Release
+            - run: dotnet build -c Release
     unit_tests
         description: run unit tests
         steps:
             - checkout
-            run: dotnet test
+            - run: dotnet test
