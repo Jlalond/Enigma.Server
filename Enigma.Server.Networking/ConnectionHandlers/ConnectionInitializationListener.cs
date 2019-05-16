@@ -17,6 +17,7 @@ namespace Enigma.Server.Networking.ConnectionHandlers
             // Use any for the local address vs calling DNS GetHost Name
             // https://docs.microsoft.com/en-us/dotnet/api/system.net.sockets.tcplistener?view=netframework-4.8
             _tcpListener = new TcpListener(IPAddress.Any, StartupInfo.PortNum);
+            _tcpListener.Start();
             new Thread(ListenOnSeparateThread).Start();
         }
 
