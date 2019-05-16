@@ -22,6 +22,5 @@ namespace EnigmaServer.Networking.UnitTests.HelperClasses
         {
             ResetEvent.WaitOne(millisecondsToWait);
         }
-
     }
 }
