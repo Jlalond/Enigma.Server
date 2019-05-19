@@ -13,8 +13,8 @@ namespace Enigma.Server.Networking.ConnectionHandlers
         public TcpConnectionHandler(Socket socket)
         {
             _socket = socket;
-            new Thread(ListenOverSocket).Start();
             Messages = new Stack<string>();
+            new Thread(ListenOverSocket).Start();
         }
 
         private void ListenOverSocket()
