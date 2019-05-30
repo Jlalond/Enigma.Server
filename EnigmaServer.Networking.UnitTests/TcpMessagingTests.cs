@@ -86,11 +86,6 @@ namespace EnigmaServer.Networking.UnitTests
             }
         }
 
-        private class TestMessage
-        {
-            public int Test { get; set; }
-        }
-
         ~TcpMessagingTests()
         {
             _tcpClient.Client.Close();

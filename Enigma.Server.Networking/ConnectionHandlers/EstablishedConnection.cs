@@ -8,7 +8,7 @@ namespace Enigma.Server.Networking.ConnectionHandlers
     public class EstablishedConnection
     {
         private readonly TcpConnectionHandler _tcpConnectionHandler;
-        private readonly UdpConnectHandler _udpConnectHandler;
+        private readonly UdpConnectionHandler _udpConnectHandler;
 
         public EstablishedConnection(Socket socket)
         {
