@@ -5,13 +5,17 @@ VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Server.Startup", "Enigma.Server\Enigma.Server.Startup.csproj", "{9237C8DB-309A-4337-9C7A-C4586FDC1885}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enigma.Server.Orchestration", "Enigma.Server.Orchestration\Enigma.Server.Orchestration.csproj", "{ACD940E5-6013-470A-8B7B-F6652EB2CD0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Server.Orchestration", "Enigma.Server.Orchestration\Enigma.Server.Orchestration.csproj", "{ACD940E5-6013-470A-8B7B-F6652EB2CD0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enigma.Server.Domain", "Enigma.Server.Domain\Enigma.Server.Domain.csproj", "{11F4B4C2-17B3-4CC8-A3E3-ECCC34565D32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Server.Domain", "Enigma.Server.Domain\Enigma.Server.Domain.csproj", "{11F4B4C2-17B3-4CC8-A3E3-ECCC34565D32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enigma.Server.Networking", "Enigma.Server.Networking\Enigma.Server.Networking.csproj", "{51690EFC-DE99-456A-B5C1-30F7DCAC0C4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Server.Networking", "Enigma.Server.Networking\Enigma.Server.Networking.csproj", "{51690EFC-DE99-456A-B5C1-30F7DCAC0C4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enigma.Server.ServerState", "Enigma.Server.ServerState\Enigma.Server.ServerState.csproj", "{50CEE479-A82E-47DE-B4F0-9761A677125C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Server.ServerState", "Enigma.Server.ServerState\Enigma.Server.ServerState.csproj", "{50CEE479-A82E-47DE-B4F0-9761A677125C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit Tests", "Unit Tests", "{2DA32EC4-8F73-44C0-A77C-3435A1AD7F44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnigmaServer.Networking.UnitTests", "EnigmaServer.Networking.UnitTests\EnigmaServer.Networking.UnitTests.csproj", "{6C50565A-7759-458E-8608-E7CCD4291562}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,9 +43,16 @@ Global
 		{50CEE479-A82E-47DE-B4F0-9761A677125C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50CEE479-A82E-47DE-B4F0-9761A677125C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50CEE479-A82E-47DE-B4F0-9761A677125C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C50565A-7759-458E-8608-E7CCD4291562}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C50565A-7759-458E-8608-E7CCD4291562}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C50565A-7759-458E-8608-E7CCD4291562}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C50565A-7759-458E-8608-E7CCD4291562}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6C50565A-7759-458E-8608-E7CCD4291562} = {2DA32EC4-8F73-44C0-A77C-3435A1AD7F44}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2E1A9A2D-EE4C-47C5-9481-FA013F691000}
