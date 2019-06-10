@@ -4,8 +4,9 @@ using System.Text;
 
 namespace Enigma.Server.Domain
 {
-    public class NetworkDataHistory
+    public interface ISerializer
     {
-        
+        T Deserialize<T>(string val);
+        string Serialize(object obj);
     }
 }
