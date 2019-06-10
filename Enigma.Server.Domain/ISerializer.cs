@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Enigma.Server.Domain
+﻿namespace Enigma.Server.Domain
 {
     public interface ISerializer
     {

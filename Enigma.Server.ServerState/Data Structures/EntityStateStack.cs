@@ -1,6 +1,7 @@
 ﻿using System.Collections;
+using Enigma.Server.ServerState.Settings;
 
-namespace Enigma.Server.ServerState
+namespace Enigma.Server.ServerState.Data_Structures
 {
     internal class EntityStateStack
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Text;
+using Enigma.Server.ServerState.Models;
 
 namespace Enigma.Server.ServerState
 {

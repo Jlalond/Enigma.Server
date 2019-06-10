@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Enigma.Server.Orchestration
+﻿namespace Enigma.Server.Orchestration
 {
     public struct ServerConfiguration
     {

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Text;
 using Enigma.Server.Domain.ConcurrnetBagExtensions;
 
-namespace Enigma.Server.ServerState
+namespace Enigma.Server.ServerState.Models
 {
     internal class ServerEntityIdentity
     {

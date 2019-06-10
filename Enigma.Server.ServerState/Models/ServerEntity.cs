@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Enigma.Server.Domain;
+using Enigma.Server.ServerState.Data_Structures;
 
-namespace Enigma.Server.ServerState
+namespace Enigma.Server.ServerState.Models
 {
     public class ServerEntity
     {

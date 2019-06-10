@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Enigma.Server.ServerState
+﻿namespace Enigma.Server.ServerState.Settings
 {
     public static class ServerStateSettings
     {

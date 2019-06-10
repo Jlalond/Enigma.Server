@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Enigma.Server.Networking\Enigma.Server.Networking.csproj" />
+    <ProjectReference Include="..\Enigma.Server.ServerState\Enigma.Server.ServerState.csproj" />
   </ItemGroup>
 
 </Project>

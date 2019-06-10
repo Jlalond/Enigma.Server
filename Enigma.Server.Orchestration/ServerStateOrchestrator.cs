@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
 using Enigma.Core.Networking.Messaging;
 using Enigma.Server.Domain;
@@ -31,9 +29,9 @@ namespace Enigma.Server.Orchestration
             _establishedConnections.Add(new EstablishedConnection(socket));
         }
 
-        public void ListenerLoop()
+        private void ListenerLoop()
         {
-
+            ListenForCreationAndDeletionEvents();
         }
 
         private void ListenForCreationAndDeletionEvents()
@@ -42,8 +40,7 @@ namespace Enigma.Server.Orchestration
             {
                 var popValue = connection.TcpConnectionHandler.Messages.Pop();
                 var messageWrapper = _serializer.Deserialize<MessageWrapper>(popValue);
-                
-                
+                //_networkStateDatabase.Put(messageWrapper.);
             }
         }
     }
