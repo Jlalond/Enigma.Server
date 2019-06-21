@@ -6,9 +6,9 @@ namespace Enigma.Server.ServerState
     public interface INetworkStateDatabase
     {
         void Put(Guid guid, object obj);
-        void Delete(Guid guid);
-        void Delete(Guid guid, object obj);
-        IEnumerable<object> Get(Guid guid);
-        T Get<T>(Guid guid) where T : class;
+        void DeleteEntityGroup(Guid guid);
+        void DeleteEntity(Guid guid, object obj);
+        IEnumerable<object> GetAssociatedEntities(Guid guid);
+        T GetEntityWithType<T>(Guid guid) where T : class;
     }
 }

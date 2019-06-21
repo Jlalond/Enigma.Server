@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using Enigma.Server.Domain;
 
 namespace Enigma.Server.ServerState.TypeData
 {
     public class TypeMethodCallingInfo
     {
-        public readonly Dictionary<string, CallSiteInfo> MethodsAndTheirCallSiteInfos;
+        public IReadOnlyDictionary<string, CallSiteInfo> MethodsAndTheirCallSiteInfos { get; }
 
         public TypeMethodCallingInfo(Type type)
         {

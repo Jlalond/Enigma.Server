@@ -16,5 +16,10 @@ namespace Enigma.Server.ServerState.Data_Structures
         {
             _stack.Push(obj);
         }
+
+        public object Current()
+        {
+            return _stack.Peek();
+        }
     }
 }

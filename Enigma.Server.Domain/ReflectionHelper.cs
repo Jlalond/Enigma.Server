@@ -30,5 +30,31 @@ namespace Enigma.Server.Domain
         {
             return type.GetMethods(BindingFlags.Public | BindingFlags.Instance);
         }
+
+        public static IEnumerable<Type> GetAllTypesInAppDomain()
+        {
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            var types = new ConcurrentBag<Type>();
+            Parallel.ForEach(assemblies, (assembly) =>
+            {
+                var searchedTypes = assembly.GetTypes();
+                foreach (var searchedType in searchedTypes)
+                {
+                    types.Add(searchedType);
+                }
+            });
+
+            return types;
+        }
+
+        public static string GetTypeName(Type type)
+        {
+            if (type.FullName != null)
+            {
+                return type.FullName;
+            }
+
+            return "";
+        }
     }
 }

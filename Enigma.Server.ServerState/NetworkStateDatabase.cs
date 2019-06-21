@@ -7,7 +7,7 @@ namespace Enigma.Server.ServerState
 {
     public class NetworkStateDatabase : INetworkStateDatabase
     {
-        private Dictionary<Guid, ServerEntityIdentity> _serverEntitiesByGuid { get; set; }
+        private Dictionary<Guid, ServerIdentityGroup> _serverEntitiesByGuid { get; set; }
         private ConcurrentBag<ServerEntity> _touchedEntities;
 
         public void Put(Guid guid, object obj)
@@ -18,34 +18,35 @@ namespace Enigma.Server.ServerState
             }
             else
             {
-                _serverEntitiesByGuid.Add(guid, new ServerEntityIdentity(guid, obj));
+                _serverEntitiesByGuid.Add(guid, new ServerIdentityGroup(guid, obj));
             }
         }
 
-        public void Delete(Guid guid)
+        public void DeleteEntityGroup(Guid guid)
         {
             if (_serverEntitiesByGuid.ContainsKey(guid))
             {
                 _serverEntitiesByGuid[guid] = null;
+                // Also refactor this.
             }
         }
 
-        public void Delete(Guid guid, object obj)
+        public void DeleteEntity(Guid guid, object obj)
         {
             if (_serverEntitiesByGuid.ContainsKey(guid))
             {
-                //
+                _serverEntitiesByGuid[guid].Delete(obj);
             }
         }
 
-        public IEnumerable<object> Get(Guid guid)
+        public IEnumerable<object> GetAssociatedEntities(Guid guid)
         {
-            throw new NotImplementedException();
+            return _serverEntitiesByGuid[guid].GetCurrentEntityGroupSnapshot();
         }
 
-        public T Get<T>(Guid guid) where T : class
+        public T GetEntityWithType<T>(Guid guid) where T : class
         {
-            throw new NotImplementedException();
+            return _serverEntitiesByGuid[guid].GetEntityOfType<T>();
         }
     }
 }

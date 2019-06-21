@@ -40,7 +40,7 @@ namespace Enigma.Server.Orchestration
             {
                 var popValue = connection.TcpConnectionHandler.Messages.Pop();
                 var messageWrapper = _serializer.Deserialize<MessageWrapper>(popValue);
-                //_networkStateDatabase.Put(messageWrapper.);
+                _networkStateDatabase.Put(messageWrapper.Object.AssociatedNetworkIdentity, messageWrapper.Object);
             }
         }
     }
