@@ -43,9 +43,11 @@ namespace Enigma.Server.ServerState.Models
             }
         }
 
-        public void FlushAll()
+        public IEnumerable<object> FlushAll()
         {
+            var snapShot = _touched.Select(c => c.Current);
             _touched.ClearAndDoAction((serverEntity) => serverEntity.Flush());
+            return snapShot;
         }
 
         public void ExecuteMethod(Type type, string methodName, object[] parameters)
@@ -57,11 +59,11 @@ namespace Enigma.Server.ServerState.Models
         public IEnumerable<object> GetCurrentEntityGroupSnapshot() =>
             _entitiesByType.Values.Select(c => c.Current);
 
-        public T GetEntityOfType<T>()
+        public ServerEntity GetEntityOfType(Type T)
         {
-            if (_entitiesByType.ContainsKey(typeof(T)))
+            if (_entitiesByType.ContainsKey(T))
             {
-                return (T)_entitiesByType[typeof(T)].Current;
+                return _entitiesByType[T];
             }
             // TODO: throw good exception.
             throw new Exception();

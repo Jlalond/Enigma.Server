@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Sockets;
 using System.Threading;
+using System.Threading.Tasks;
 using Enigma.Core.Networking.Messaging;
 using Enigma.Server.Domain;
 using Enigma.Server.Networking.ConnectionHandlers;
@@ -14,6 +17,8 @@ namespace Enigma.Server.Orchestration
         private readonly IList<EstablishedConnection> _establishedConnections;
         private readonly ISerializer _serializer;
         private INetworkStateDatabase _networkStateDatabase;
+        private const int MilliSecondsToWait = 33;
+        private DateTime _previousDateTime;
 
         public ServerStateOrchestrator(ISerializer serializer, INetworkStateDatabase networkStateDatabase)
         {
@@ -21,6 +26,7 @@ namespace Enigma.Server.Orchestration
             _networkStateDatabase = networkStateDatabase;
             _establishedConnections = new List<EstablishedConnection>();
             _connectionListener.NewSocketEvent += (sender, socket) => EstablishConnection(socket);
+            _previousDateTime = DateTime.UtcNow;
             new Thread(ListenerLoop).Start();
         }
 
@@ -32,6 +38,7 @@ namespace Enigma.Server.Orchestration
         private void ListenerLoop()
         {
             ListenForCreationAndDeletionEvents();
+            ListenForUdpUpdates();
         }
 
         private void ListenForCreationAndDeletionEvents()
@@ -41,6 +48,30 @@ namespace Enigma.Server.Orchestration
                 var popValue = connection.TcpConnectionHandler.Messages.Pop();
                 var messageWrapper = _serializer.Deserialize<MessageWrapper>(popValue);
                 _networkStateDatabase.Put(messageWrapper.Object.AssociatedNetworkIdentity, messageWrapper.Object);
+            }
+        }
+
+        private void ListenForUdpUpdates()
+        {
+            foreach (var connection in _establishedConnections)
+            {
+                var popValue = connection.UdpConnectHandler.Messages.Pop();
+                var messageWrapper = _serializer.Deserialize<MessageWrapper>(popValue);
+                _networkStateDatabase.Put(messageWrapper.Object.AssociatedNetworkIdentity, messageWrapper.Object);
+            }
+        }
+
+        private void BroadCastLoop()
+        {
+            var autoEvent = new AutoResetEvent(false);
+            var timer = new Timer(new TimerCallback(BroadcastAll), autoEvent, MilliSecondsToWait, MilliSecondsToWait);
+        }
+
+        private void BroadcastAll(object value)
+        {
+            foreach (var connection in _establishedConnections)
+            {
+                connection.SendStatelessBroadCast(_networkStateDatabase.GetAllObjectsToBroadcast());
             }
         }
     }

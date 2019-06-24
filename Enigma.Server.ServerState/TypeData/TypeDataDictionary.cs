@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Enigma.Core.Networking.Identity;
+using Enigma.Core.Networking.Utilities;
 using Enigma.Server.Domain;
 
 namespace Enigma.Server.ServerState.TypeData
@@ -13,10 +14,11 @@ namespace Enigma.Server.ServerState.TypeData
 
         static TypeDataDictionary()
         {
-            var childTypes = ReflectionHelper.GetAllChildTypes(typeof(NetworkEntity));
+            var childTypes = ReflectionHelper.GetAllChildTypes(typeof(INetworkEntity));
             TypesAndTheirPublicMethods =
                 childTypes.ToDictionary(type => type, v => new TypeMethodCallingInfo(v));
-            var allTypes = ReflectionHelper.GetAllTypesInAppDomain().ToDictionary(c => )
+            TypesByTheirTypeNames = ReflectionHelper.GetAllTypesInAppDomain()
+                                           .ToDictionary(TypeNamer.GetTypeName, v => v);
         }
 
         public static TypeMethodCallingInfo GetTypeMethodCallingInfoForType(Type t)
@@ -28,7 +30,7 @@ namespace Enigma.Server.ServerState.TypeData
 
         public static Type GetTypeForTypeName(string typeName)
         {
-
+            return TypesByTheirTypeNames.ContainsKey(typeName) ? TypesByTheirTypeNames[typeName] : null;
         }
     }
 }

@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
+using Enigma.Core.Networking.Identity.BroadcastFrequency;
+using Enigma.Server.Domain;
 using Enigma.Server.ServerState.Models;
 
 namespace Enigma.Server.ServerState
 {
     public class NetworkStateDatabase : INetworkStateDatabase
     {
-        private Dictionary<Guid, ServerIdentityGroup> _serverEntitiesByGuid { get; set; }
+        private ISet<ServerEntity> _alwaysUpdateLoop;
+        private Dictionary<Guid, ServerIdentityGroup> _serverEntitiesByGuid;
         private ConcurrentBag<ServerEntity> _touchedEntities;
 
         public void Put(Guid guid, object obj)
@@ -19,6 +23,13 @@ namespace Enigma.Server.ServerState
             else
             {
                 _serverEntitiesByGuid.Add(guid, new ServerIdentityGroup(guid, obj));
+            }
+
+            if (ReflectionHelper.GetBroadCastFrequencySettingForType(obj.GetType()) ==
+                BroadCastFrequencySetting.AlwaysBroadcast &&
+                _alwaysUpdateLoop.Contains(_serverEntitiesByGuid[guid].GetEntityOfType(obj.GetType())) == false)
+            {
+                _alwaysUpdateLoop.Add(_serverEntitiesByGuid[guid].GetEntityOfType(obj.GetType()));
             }
         }
 
@@ -44,9 +55,10 @@ namespace Enigma.Server.ServerState
             return _serverEntitiesByGuid[guid].GetCurrentEntityGroupSnapshot();
         }
 
-        public T GetEntityWithType<T>(Guid guid) where T : class
+
+        public IEnumerable<object> GetAllObjectsToBroadcast()
         {
-            return _serverEntitiesByGuid[guid].GetEntityOfType<T>();
+            return _alwaysUpdateLoop.Select(c => c.Current).Concat(_touchedEntities.Select(c => c.Current)).Distinct();
         }
     }
 }

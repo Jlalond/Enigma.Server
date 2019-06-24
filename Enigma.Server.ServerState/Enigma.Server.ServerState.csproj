@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Enigma.Core" Version="0.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Enigma.Server.Domain\Enigma.Server.Domain.csproj" />
   </ItemGroup>
 

@@ -9,6 +9,6 @@ namespace Enigma.Server.ServerState
         void DeleteEntityGroup(Guid guid);
         void DeleteEntity(Guid guid, object obj);
         IEnumerable<object> GetAssociatedEntities(Guid guid);
-        T GetEntityWithType<T>(Guid guid) where T : class;
+        IEnumerable<object> GetAllObjectsToBroadcast();
     }
 }

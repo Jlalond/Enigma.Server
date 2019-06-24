@@ -3,20 +3,45 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Enigma.Core.Networking.Identity.BroadcastFrequency;
 
 namespace Enigma.Server.Domain
 {
     public static class ReflectionHelper
     {
+        private static IReadOnlyDictionary<Type, BroadCastFrequencySetting> _typeAndBroadCastFrequencySettings;
+        static ReflectionHelper()
+        {
+            var typesAndBroadcastSettings = new Dictionary<Type, BroadCastFrequencySetting>();
+            var allTypesInDomain = GetAllTypesInAppDomain();
+            foreach (var type in allTypesInDomain)
+            {
+                if (typesAndBroadcastSettings.ContainsKey(type))
+                {
+                    continue;
+                }
+
+                var broadCastFrequencyAttributes =
+                    type.GetCustomAttributes(typeof(BroadCastFrequencyAttribute)).ToList();
+                if (broadCastFrequencyAttributes.Any())
+                {
+                    var attribute = broadCastFrequencyAttributes.FirstOrDefault() as BroadCastFrequencyAttribute;
+                    typesAndBroadcastSettings.Add(type, attribute?.BroadCastFrequencySetting ?? BroadCastFrequencySetting.OnUpdate);
+                }
+            }
+
+            _typeAndBroadCastFrequencySettings = typesAndBroadcastSettings;
+        }
         public static IEnumerable<Type> GetAllChildTypes(Type type)
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
             var types = new ConcurrentBag<Type>();
             Parallel.ForEach(assemblies, (assembly) =>
             {
-                var descendentTypes = assembly.GetTypes().Where(c => c.IsSubclassOf(type));
+                var descendentTypes = assembly.GetTypes().Where(c => c.IsSubclassOf(type) || (type).IsAssignableFrom(c));
                 foreach (var childType in descendentTypes)
                 {
                     types.Add(childType);
@@ -47,14 +72,9 @@ namespace Enigma.Server.Domain
             return types;
         }
 
-        public static string GetTypeName(Type type)
+        public static BroadCastFrequencySetting GetBroadCastFrequencySettingForType(Type t)
         {
-            if (type.FullName != null)
-            {
-                return type.FullName;
-            }
-
-            return "";
+            return _typeAndBroadCastFrequencySettings[t];
         }
     }
 }

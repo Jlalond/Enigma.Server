@@ -26,5 +26,10 @@ namespace Enigma.Server.Networking.ConnectionHandlers
                 Messages.Push(Encoding.UTF8.GetString(dataGram.Buffer));
             }
         }
+
+        public void SendMessage(byte[] array)
+        {
+            _udpClient.Send(array, array.Length);
+        }
     }
 }
